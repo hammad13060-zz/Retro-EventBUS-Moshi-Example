@@ -1,0 +1,26 @@
+package com.example.hammad13060.androidclient.httpHelper;
+
+import com.example.hammad13060.androidclient.httpHelper.entities.User;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+
+/**
+ * Created by hammad13060 on 27/04/16.
+ */
+public interface UsersServiceInterface {
+
+    @GET("users/")
+    Call<List<User>> getAllUsers();
+
+    @GET("users/{id}")
+    Call<User> getUser(@Path("id") int id);
+
+    @POST("users/")
+    Call<User> addUser(@Body User user);
+}
