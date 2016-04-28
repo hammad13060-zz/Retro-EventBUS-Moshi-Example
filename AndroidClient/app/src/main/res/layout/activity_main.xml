@@ -14,18 +14,45 @@
         android:layout_height="wrap_content"
         android:text="get all users"
         android:id="@+id/button"
-        android:layout_alignParentTop="true"
+        android:onClick="onGetAllUsersClick"
+        android:layout_below="@+id/add_user_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
-        android:onClick="onGetAllUsersClick" />
+        android:layout_marginTop="58dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="get user"
         android:id="@+id/button2"
-        android:layout_below="@+id/button"
+        android:onClick="onGetUserClick"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add user"
+        android:id="@+id/add_user_button"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:onClick="onGetUserClick" />
+        android:onClick="onAddUserClick" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="delete user"
+        android:id="@+id/delete_user_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onDeleteUserClick" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="update user"
+        android:id="@+id/update_user_button"
+        android:layout_below="@+id/button2"
+        android:layout_alignEnd="@+id/delete_user_button"
+        android:layout_marginTop="41dp"
+        android:onClick="onUpdateUserClick" />
 </RelativeLayout>

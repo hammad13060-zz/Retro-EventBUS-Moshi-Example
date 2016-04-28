@@ -6,30 +6,32 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.example.hammad13060.androidclient.R;
 import com.example.hammad13060.androidclient.httpHelper.UsersService;
-import com.example.hammad13060.androidclient.httpHelper.busEvents.UserEvent;
+import com.example.hammad13060.androidclient.httpHelper.busEvents.DeleteUserEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.w3c.dom.Text;
 
-public class GetUserActivity extends AppCompatActivity {
+public class DeleteUserActivity extends AppCompatActivity {
 
-    EditText idEditText;
-    TextView responseTextView;
+    private EditText idEditText;
+    private TextView responseTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_user);
+        setContentView(R.layout.activity_delete_user);
 
         idEditText = (EditText)findViewById(R.id.id_edit_text);
-        responseTextView = (TextView)findViewById(R.id.user_text_view);
+        responseTextView = (TextView)findViewById(R.id.response_text_view);
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart(){
         super.onStart();
         EventBus.getDefault().register(this);
     }
@@ -40,13 +42,13 @@ public class GetUserActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    public void onGetUserClick(View view) {
+    public void onDeleteUserClick(View view) {
         String strID = idEditText.getText().toString();
         try{
             if (!TextUtils.isEmpty(strID)) {
                 int id = Integer.parseInt(strID);
                 if (id >= 1) {
-                    UsersService.getInstance().getUser(id);
+                    UsersService.getInstance().deleteUser(id);
                 } else {
                     responseTextView.setText("id should be >= 1");
                 }
@@ -61,11 +63,11 @@ public class GetUserActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGetUserEvent(UserEvent event) {
+    public void onDeleteUserEvent(DeleteUserEvent event) {
         if (event.getStatus() == UsersService.STATUS_SUCCESS) {
-            responseTextView.setText("full name: " + event.getUser());
+            responseTextView.setText("DELETE successful");
         } else {
-            responseTextView.setText("GET failed");
+            responseTextView.setText("DELETE failed");
         }
     }
 }

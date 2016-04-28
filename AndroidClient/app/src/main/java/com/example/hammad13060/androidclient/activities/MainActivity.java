@@ -16,6 +16,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void onAddUserClick(View view) {
+        Intent intent = new Intent(this, AddUserActivity.class);
+        startActivity(intent);
+    }
+
     public void onGetAllUsersClick(View view) {
         Intent intent = new Intent(this, GetAllUsersActivity.class);
         startActivity(intent);
@@ -23,6 +28,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void onGetUserClick(View view) {
         Intent intent = new Intent(this, GetUserActivity.class);
+        startActivity(intent);
+    }
+
+    public  void onUpdateUserClick(View view) {
+        Intent intent = new Intent(this, UpdateUserActivity.class);
+        startActivity(intent);
+    }
+
+    public void onDeleteUserClick(View view) {
+        Intent intent = new Intent(this, DeleteUserActivity.class);
         startActivity(intent);
     }
 }

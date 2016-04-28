@@ -1,7 +1,8 @@
 package com.example.hammad13060.androidclient.httpHelper;
 
+import com.example.hammad13060.androidclient.httpHelper.busEvents.DeleteUserEvent;
 import com.example.hammad13060.androidclient.httpHelper.busEvents.GetAllUsersEvent;
-import com.example.hammad13060.androidclient.httpHelper.busEvents.GetUserEvent;
+import com.example.hammad13060.androidclient.httpHelper.busEvents.UserEvent;
 import com.example.hammad13060.androidclient.httpHelper.entities.User;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,22 +63,54 @@ public class UsersService {
     }
 
     public void getUser(int id) {
-        service.getUser(id).enqueue(new Callback<User>() {
+        service.getUser(id).enqueue(initUserCallback(200));
+    }
+
+    public void addUser(User user) {
+        service.addUser(user).enqueue(initUserCallback(201));
+    }
+
+    public void deleteUser(int id) {
+        service.deleteUser(id).enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.code() == 200) {
+                    eventBus.post(new DeleteUserEvent(STATUS_SUCCESS));
+                } else {
+                    eventBus.post(new DeleteUserEvent(STATUS_FAILED));
+                }
+                call.cancel();
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                eventBus.post(new DeleteUserEvent(STATUS_FAILED));
+                call.cancel();
+            }
+        });
+    }
+
+    public void updateUser(int id, User user) {
+        service.updateUser(id, user).enqueue(initUserCallback(200));
+    }
+
+    public Callback<User> initUserCallback(final int expectedCode) {
+        return new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.code() == 200) {
-                    eventBus.post(new GetUserEvent(STATUS_SUCCESS, response.body()));
+                if (response.code() == expectedCode) {
+                    eventBus.post(new UserEvent(STATUS_SUCCESS, response.body()));
                 } else {
-                    eventBus.post(new GetUserEvent(STATUS_FAILED, new User("invalid", "invalid")));
+                    eventBus.post(new UserEvent(STATUS_FAILED, new User("invalid", "invalid")));
                 }
                 call.cancel();
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                eventBus.post(new GetUserEvent(STATUS_FAILED, new User("invalid", "invalid")));
+                eventBus.post(new UserEvent(STATUS_FAILED, new User("invalid", "invalid")));
                 call.cancel();
             }
-        });
+        };
     }
 }

@@ -1,9 +1,9 @@
 {
   "users": [
     {
-      "id": 1,
       "firstName": "Hammad",
-      "lastName": "Akhtar"
+      "lastName": "Akhtar",
+      "id": 1
     },
     {
       "id": 2,
@@ -11,9 +11,9 @@
       "lastName": "Akhtar"
     },
     {
-      "id": 3,
-      "firstName": "Fatima Zehra",
-      "lastName": "Akhtar"
+      "firstName": "Fatima",
+      "lastName": "Akhtar",
+      "id": 3
     }
   ]
 }
