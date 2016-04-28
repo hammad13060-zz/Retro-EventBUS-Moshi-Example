@@ -18,6 +18,13 @@ A sample android client demonstrating usage of Retrofit, EventBUS, MoshiConverte
 ### [lombok](https://projectlombok.org/)
 - for generating getters and setters using annotations
 - used [this](http://stackoverflow.com/questions/21344692/how-to-set-up-compile-library-in-android-studio-lombok) link to configure it
+
+# REST api
+- `GET /users`
+- `GET /users/{id}`
+- `POST /users`
+- `PUT /users/{id}`
+- `DELETE /users/{id}`
   
 # Usage
 
